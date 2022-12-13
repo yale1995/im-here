@@ -67,14 +67,6 @@ export function Home() {
           </Text>
         )}
       />
-
-      {/* {participants.map((participant) => (
-        <Participant
-          key={participant}
-          name={participant}
-          onRemove={() => handleParticipantRemove(participant)}
-        />
-      ))} */}
     </View>
   );
 }

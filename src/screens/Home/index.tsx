@@ -1,10 +1,30 @@
 import { styles } from "./styles";
 
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
 import { Participant } from "../../components/Participant";
 
 export function Home() {
+  const participants = [
+    "Yale Henrique Araújo dos Santos",
+    "Maria Luiza de Araújo Puglia",
+    "Luciano Teixeira dos Santos",
+    "Marleide Barros Galdino",
+    "Yure Araújo dos Santos",
+    "Luiz Felipe de Araújo Puglia",
+    "Patricia Cristina de Araújo Puglia e Carvalho",
+    "Luiz André de Barros Puglia",
+    "João Guilherme de Barros Puglia",
+    "Calline de Andrade Barros",
+    "Ana Xavier dos Santos",
+    "Luiza Anália de Araújo",
+  ];
   function handleParticipantAdd() {
     console.log("Você clicou no botão de adicionar participante");
   }
@@ -28,28 +48,15 @@ export function Home() {
         </TouchableOpacity>
       </View>
 
-      <Participant
-        name="Yale Henrique Araújo dos Santos"
-        onRemove={() =>
-          handleParticipantRemove("Yale Henrique Araújo dos Santos")
-        }
-      />
-      <Participant
-        name="Marleide Barros Galdino"
-        onRemove={() => handleParticipantRemove("Marleide Barros Galdino")}
-      />
-      <Participant
-        name="Maria Luiza de Araújo Puglia"
-        onRemove={() => handleParticipantRemove("Maria Luiza de Araújo Puglia")}
-      />
-      <Participant
-        name="Luciano Teixeira dos Santos"
-        onRemove={() => handleParticipantRemove("Luciano Teixeira dos Santos")}
-      />
-      <Participant
-        name="Yure Araújo dos Santos"
-        onRemove={() => handleParticipantRemove("Yure Araújo dos Santos")}
-      />
+      <ScrollView>
+        {participants.map((participant) => (
+          <Participant
+            key={participant}
+            name={participant}
+            onRemove={() => handleParticipantRemove(participant)}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }

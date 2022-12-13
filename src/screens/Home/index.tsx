@@ -1,5 +1,9 @@
 import { styles } from "./styles";
 
+import { Participant } from "../../components/Participant";
+
+import { useState } from "react";
+
 import {
   View,
   Text,
@@ -9,45 +13,40 @@ import {
   Alert,
 } from "react-native";
 
-import { Participant } from "../../components/Participant";
-
 export function Home() {
-  const participants = [
-    "Yale Henrique Araújo dos Santos",
-    "Maria Luiza de Araújo Puglia",
-    "Luciano Teixeira dos Santos",
-    "Marleide Barros Galdino",
-    "Yure Araújo dos Santos",
-    "Luiz Felipe de Araújo Puglia",
-    "Patricia Cristina de Araújo Puglia e Carvalho",
-    "Luiz André de Barros Puglia",
-    "João Guilherme de Barros Puglia",
-    "Calline de Andrade Barros",
-    "Ana Xavier dos Santos",
-    "Luiza Anália de Araújo",
-  ];
+  const [participants, setParticipants] = useState<string[]>([]);
+  const [participantName, setParticipantName] = useState("");
+
   function handleParticipantAdd() {
-    if (participants.includes("Yale Henrique Araújo dos Santos")) {
+    if (participants.includes(participantName)) {
       return Alert.alert(
         "Participant already exists",
         "Please select any other participant, this name already is in the list."
       );
     }
-    console.log("Você clicou no botão de adicionar participante");
+
+    setParticipants([...participants, participantName]);
+    setParticipantName("");
   }
 
   function handleParticipantRemove(name: string) {
-    Alert.alert(`Are you sure this?`, `Confirm to delet the participant ${name}. `, [
-      {
-        text: "Yes",
-        onPress: () => Alert.alert("Deleted"),
-      },
-      {
-        text: "No",
-        style: "cancel",
-      },
-    ]);
-    console.log(`Você clicou no botão de remover participante ${name}`);
+    Alert.alert(
+      `Are you sure this?`,
+      `Confirm to delet the participant ${name}. `,
+      [
+        {
+          text: "Yes",
+          onPress: () =>
+            setParticipants(
+              participants.filter((participant) => participant != name)
+            ),
+        },
+        {
+          text: "No",
+          style: "cancel",
+        },
+      ]
+    );
   }
   return (
     <View style={styles.container}>
@@ -59,6 +58,8 @@ export function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6b6b6b"
+          onChangeText={(event) => setParticipantName(event)}
+          value={participantName}
         />
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
           <Text style={styles.buttonText}>+</Text>

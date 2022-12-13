@@ -5,8 +5,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
   FlatList,
+  Alert,
 } from "react-native";
 
 import { Participant } from "../../components/Participant";
@@ -27,10 +27,26 @@ export function Home() {
     "Luiza Anália de Araújo",
   ];
   function handleParticipantAdd() {
+    if (participants.includes("Yale Henrique Araújo dos Santos")) {
+      return Alert.alert(
+        "Participant already exists",
+        "Please select any other participant, this name already is in the list."
+      );
+    }
     console.log("Você clicou no botão de adicionar participante");
   }
 
   function handleParticipantRemove(name: string) {
+    Alert.alert(`Are you sure this?`, `Confirm to delet the participant ${name}. `, [
+      {
+        text: "Yes",
+        onPress: () => Alert.alert("Deleted"),
+      },
+      {
+        text: "No",
+        style: "cancel",
+      },
+    ]);
     console.log(`Você clicou no botão de remover participante ${name}`);
   }
   return (
